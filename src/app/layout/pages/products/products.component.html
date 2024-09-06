@@ -1,0 +1,72 @@
+<div class="w-10/12 mx-auto flex py-7">
+
+  <div class="w-3/4 main-img">
+
+    <!-- from owl -->
+
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide>
+        <img src="./assets/images/slider-image-1.jpeg" class="w-full" alt="">
+      </ng-template>
+      <ng-template carouselSlide>
+        <img src="./assets/images/slider-image-2.jpeg" class="w-full" alt="">
+      </ng-template>
+      <ng-template carouselSlide>
+        <img src="./assets/images/slider-image-3.jpeg" class="w-full" alt="">
+      </ng-template>
+    </owl-carousel-o>
+
+    <!-- from owl -->
+
+  </div>
+  <div class="w-1/4 secondary-img">
+    <img src="./assets/images/slider-image-2.jpeg" class="w-full" alt="">
+    <img src="./assets/images/slider-image-3.jpeg" class="w-full" alt="">
+  </div>
+
+</div>
+
+<div class="block text-center">
+  <input type="text" [(ngModel)]="serchTerm" placeholder="
+    {{'Chose your Products.......' | translate}}
+    " class="rounded-lg border-gray-500 mt-2 bg-green-50 w-1/2 h-16 font-bold text-2xl text-black" />
+</div>
+
+<div class="w-10/12 mx-auto flex flex-wrap">
+
+
+  <!-- productList()  For signal -->
+  @for (product of productList() | filter: serchTerm; track $index) {
+  <div class="sm:w-full md:w-1/2 lg:w-1/4  xl:w-1/5 2xl:w-1/6 p-5" [title]="product.title">
+    <div class="product p-3 flex flex-col justify-between">
+
+      <span (click)="(addToWishlist(product.id))"
+        class="cursor-pointer d-flex justify-content-end my-2">
+        <i [ngStyle]="{'color': product.isliked ? 'red' : 'black'}" (click)="(toggleFavorite(product))"  class="fa-solid fa-heart fa-2x"></i>
+      </span>
+      <!-- 1# [routerLink]="['/productDetails', product._id]" -->
+      <div [routerLink]="['/productDetails', product._id]" class="cursor-pointer">
+        <!-- 2# in app.routes.ts -->
+<div>
+  <img [src]="product.imageCover" class="w-full" [alt]="product.title">
+  <h3 class="text-main">{{product.category.name | uppercase}}</h3>
+  <h2>{{product.title.split(" ", 3).join(" ") | onsale}}</h2>
+  <div class="flex justify-between">
+    <span>{{product.price | currency: "EGP"}}</span> <!-- currency: "وتختار العملة" -->
+    <span>{{product.ratingsAverage}}
+      <i class="fa-solid fa-star rating-color"></i>
+    </span>
+  </div>
+</div>
+      </div>
+      <button class="btn-main w-full rounded-s-3xl" (click)="addProduct(product._id)">
+        {{"Add Product" | translate}}
+        @if (isLoding) {
+        <i class="fa fa-spin fa-spinner mx-2"></i>
+        }
+      </button>
+    </div>
+  </div>
+  }
+
+</div>

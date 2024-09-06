@@ -1,0 +1,51 @@
+<section class="my-5 pt-5">
+  <div class="w-10/12 mx-auto flex flex-wrap">
+    @for (product of productsWishlist; track product.id) {
+
+    <div class="sm:w-full md:w-1/2 lg:w-1/3  p-5 flex flex-wrap" [title]="product.title">
+      <div class="product p-3 flex flex-col justify-between">
+
+        <div class="cursor-pointer" [routerLink]="['/productDetails', product._id]">
+          <img [src]="product.imageCover" class="w-full" alt="">
+          <h3 class="text-main">{{product.category.name | uppercase }}</h3>
+          <h2>{{product.title.split(" ", 3).join(" ") | onsale}}</h2>
+          <div class="flex justify-between">
+            <span>{{product.price | currency: "EGP"}}</span>
+            <span>{{product.ratingsAverage}}
+              <i class="fa-solid fa-star rating-color"></i>
+            </span>
+          </div>
+
+        </div>
+        <!-- <div class="d-flex justify-content-between align-items-center"> -->
+          <!-- </div> -->
+          <div class="flex  justify-between items-center">
+            <i (click)="removeProductWishlist(product.id)" class="fa-solid fa-trash text-red-700 fa-2x"></i>
+            <button class="btn-main w-full rounded-s-3xl" (click)="addProductCart(product.id)" >
+              {{"Add Product" | translate}}
+            </button>
+          </div>
+      </div>
+    </div>
+
+
+    }@empty {
+      <div class="">
+        <img src="./assets/images/Empty-cart-DOdzWwAv.svg" class="w-4/5 mx-auto mt-5" alt="Empty wishlist">
+      </div>
+    }
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>

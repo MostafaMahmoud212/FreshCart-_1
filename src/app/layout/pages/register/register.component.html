@@ -1,0 +1,113 @@
+<div class="w-10/12 mx-auto">
+  <h2 class="text-main">{{"Register Now" | translate}} :</h2>
+
+  <form [formGroup]="registerForm"  class="mt-6" (ngSubmit)="sendData()">  <!-- #3 هربط form ب Data اللى عملتها في TS By [formGroup]="اسم form" -->
+
+    @if (isErrorMsg) {
+      <div class="alerted p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <p class="">{{"Error" | translate}} : {{errorMsg}}</p>
+      </div>
+    }
+
+    <div class="my-3">
+      <label for="name">{{"Name" | translate}}:</label>
+      <input type="text" id="name" class="w-full rounded-lg border-gray-500 mt-2" formControlName="name">
+
+      @if (registerForm.get("name")?.errors && registerForm.get("name")?.touched ) {
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+
+          @if (registerForm.get('name')?.getError('required')) {
+            <p>{{"name is required" | translate}}</p>
+          }
+          @else if (registerForm.get('name')?.getError('minlength')) {
+            <p>{{"minLength: 3" | translate}}</p>
+          }
+          @else if (registerForm.get('name')?.getError('maxlength')) {
+            <p>{{"maxLength: 20" | translate}}</p>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="my-3">
+      <label for="email">Email:</label>
+      <input type="email" id="email" class="w-full rounded-lg border-gray-500 mt-2" formControlName="email">
+
+      @if (registerForm.get("email")?.errors && registerForm.get("email")?.touched ) {
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+
+          @if (registerForm.get('email')?.getError('required')) {
+            <p>{{"Email is required" | translate}}</p>
+          }
+          @else if (registerForm.get('email')?.getError('email')) {
+            <p>{{"email invalid" | translate}}</p>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="my-3">
+      <label for="phone">{{"Phone" | translate}}:</label>
+      <input type="tel" id="phone" class="w-full rounded-lg border-gray-500 mt-2" formControlName="phone">
+
+      @if (registerForm.get("phone")?.errors && registerForm.get("phone")?.touched) {
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+
+          @if (registerForm.get('phone')?.getError('required')) {
+            <p>{{"Phone is required" | translate}}</p>
+          }
+          @else if (registerForm.get('phone')?.getError('pattern')) {
+            <p>{{"phone invalid" | translate}}</p>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="my-3">
+      <label for="password">{{"Password" | translate}}:</label>
+      <input type="password" id="password" class="w-full rounded-lg border-gray-500 mt-2" formControlName="password">
+
+      @if (registerForm.get("password")?.errors && registerForm.get("password")?.touched) {
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+
+          @if (registerForm.get('password')?.getError('required')) {
+            <p>{{"password is required" | translate}}</p>
+          }
+          @else if (registerForm.get('password')?.getError('pattern')) {
+            <p>{{"Password invalid" | translate}}</p>
+          }
+        </div>
+      }
+    </div>
+
+
+    <div class="my-3">
+      <label for="rePassword">{{"RePassword" | translate}}:</label>
+      <input type="password" id="rePassword" class="w-full rounded-lg border-gray-500 mt-2" formControlName="rePassword">
+
+      @if (registerForm.get("rePassword")?.invalid && registerForm.get("rePassword")?.touched) {
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+
+          @if (registerForm.get('rePassword')?.getError('required')) {
+            <p>{{"RePassword is required" | translate}}</p>
+          }
+          @else if (registerForm.get('rePassword')?.getError('pattern')) {
+            <p>{{"RePassword invalid" | translate}}</p>
+          }
+          @if (registerForm.errors) {
+            <p>{{"no match" | translate}}</p>
+          }
+        </div>
+      }
+    </div>
+
+    <button [disabled]="registerForm.invalid" class="btn-main ms-auto block">
+      {{"Register" | translate}}
+      @if (isLogin) {
+        <i class="fa-solid fa-spin fa-spinner"></i>
+      }
+    </button>
+
+  </form>
+
+</div>

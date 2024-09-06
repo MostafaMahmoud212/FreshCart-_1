@@ -1,0 +1,20 @@
+<div class="w-3/4 mx-auto">
+  <form [formGroup]="checkoutForm" (ngSubmit)="checkoutApi()">
+    <div class="my-2">
+      <label for="details">{{"detailse" | translate}}</label>
+      <input type="text" id="details" formControlName="details" class="w-full rounded-lg border-gray-500 mt-2">
+    </div>
+
+    <div class="my-2">
+      <label for="phone">{{"Phone"| translate}}</label>
+      <input type="text" id="phone" formControlName="phone" class="w-full rounded-lg border-gray-500 mt-2">
+    </div>
+
+    <div class="my-2">
+      <label for="city">{{"citye" | translate}}</label>
+      <input type="text" id="city" formControlName="city" class="w-full rounded-lg border-gray-500 mt-2">
+    </div>
+
+    <button class="btn-main w-full">{{"Submit" | translate}}</button>
+  </form>
+</div>

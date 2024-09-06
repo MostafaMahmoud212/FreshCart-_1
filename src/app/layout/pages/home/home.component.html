@@ -1,0 +1,36 @@
+<div class="w-10/12 mx-auto flex flex-wrap">
+
+
+  @for (product of productList; track $index) {
+    <div class="sm:w-full md:w-1/2 lg:w-1/4  xl:w-1/5 2xl:w-1/6 p-5" [title]="product.title">
+      <div class="product p-3 flex flex-col justify-between" >
+
+        <span (click)="(addToWishlist(product.id))"
+          class="cursor-pointer d-flex justify-content-end my-2">
+          <i [ngStyle]="{'color': product.isliked ? 'red' : 'black'}" (click)="(toggleFavorite(product))"  class="fa-solid fa-heart fa-2x"></i>
+        </span>
+
+        <div  class="cursor-pointer" [routerLink]="['/productDetails', product._id]" >
+          <img [src]="product.imageCover" class="w-full" alt="">
+          <h3 class="text-main">{{product.category.name | uppercase }}</h3>
+          <h2>{{product.title.split(" ", 3).join(" ") | onsale}}</h2>
+          <div class="flex justify-between">
+            <span>{{product.price | currency: "EGP"}}</span>
+            <span>{{product.ratingsAverage}}
+              <i class="fa-solid fa-star rating-color"></i>
+            </span>
+          </div>
+        </div>
+
+        <button class="btn-main w-full rounded-s-3xl" (click)="addProduct(product._id)">
+          {{"Add Product" | translate}}
+          @if (isLoding) {
+            <i class="fa fa-spin fa-spinner mx-2"></i>
+          }
+        </button>
+      </div>
+    </div>
+  }
+</div>
+
+

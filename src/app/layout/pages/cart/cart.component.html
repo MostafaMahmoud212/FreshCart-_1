@@ -1,0 +1,71 @@
+@if (AllProducts == 0) {
+  <div class="">
+    <img src="./assets/images/Empty-cart-DOdzWwAv.svg" class="w-4/5 mx-auto mt-5" alt="Empty Cart">
+  </div>
+}
+@else {
+  <div class="w-3/4 mx-auto">
+    <h2 class="text-main text-xl">
+      {{"Shop cart" | translate}}
+    </h2>
+    <h4 class="flex gap-1">
+      {{"Total Price" | translate}} :
+      <h5 class="text-main text-xl"> {{myCart.data?.totalCartPrice}}
+        {{"EGP" | translate}}
+      </h5> </h4>
+    <button class="btn-main block mx-auto" [routerLink]='["/checkout", myCart?.cartId]' routerLinkActive="router-link-active">
+      {{"Payment" | translate}}
+    </button>
+
+      @for (product of myCart?.data?.products; track $index) {
+        <div class="flex flex-wrap items-center mt-3 ">
+          <div class="w-2/12">
+            <img [src]="product.product.imageCover" class="w-full rounded-3xl" [alt]="product.product.title">
+          </div>
+
+          <div class="w-7/12">
+            <div class="mx-3">
+              <h2>{{product.product.title}}</h2>
+              @if (product.count > 1) {
+                <span class="text-2xl">
+                  {{"Total Price" | translate}} :
+                  <span class="text-main">{{product.price * product.count}}</span> EGP</span>
+              }
+              @else {
+                <span class="text-2xl">
+                  {{"Price" | translate}} :
+                  <span class="text-main">{{product.price}}</span> EGP</span>
+              }
+              <i class="fa-solid fa-trash text-red-500 cursor-pointer ms-4" (click)="removeProduct(product.product._id)"></i>
+              @if (isLoding1) {
+                <i class="fa fa-spin fa-spinner mx-2"></i>
+              }
+            </div>
+          </div>
+
+          <div class="w-3/12 felx gap-8 items-center">
+
+            <i class="text-2xl border border-gray-950 p-2 text-center" (click)="updateQuantity(product.product._id, product.count+1 )">+</i>
+            <span class="mx-4 text-3xl">{{product.count}}</span>
+            <i class="text-2xl border border-gray-950 p-2 text-center" (click)="updateQuantity(product.product._id, product.count-1 )">-</i>
+
+          </div>
+        </div>
+      }
+  </div>
+
+  }
+
+
+  @if (AllProducts > 1) {
+
+    <button (click)="removeAllProduct()" class="flex items-center transition-all text-xl border border-red-300 hover:bg-red-300 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-auto my-7 dark:border-red-300 dark:text-red-300 dark:hover:text-white dark:hover:bg-red-300 dark:focus:ring-red-300">
+      {{"Delate All Product" | translate}}
+      <i class="fa-solid fa-trash text-red-500 cursor-pointer ms-4 text-3xl"></i>
+      @if (isLoding2) {
+        <i class="fa fa-spin fa-spinner mx-2"></i>
+      }
+    </button>
+  }
+
+

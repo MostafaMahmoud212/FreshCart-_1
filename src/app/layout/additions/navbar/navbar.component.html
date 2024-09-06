@@ -1,0 +1,102 @@
+<nav class="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 z-50 left-0 right-0 flex items-center">
+  <div class="max-w-screen-xl flex items-center max-md:flex-wrap max-md:justify-between mx-auto p-4">
+    <a routerLink="home" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src="./assets/images/freshcart-logo.svg" class="h-8" alt="freshcart Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
+    </a>
+    <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+        <span class="sr-only">
+          {{"Open main menu" | translate}}
+        </span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+    </button>
+
+    <div class="hidden w-full md:flex md:justify-between md:block" id="navbar-default">
+
+      @if (isLogin) {
+        <ul class="font-medium mx-3 flex flex-col items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <li> <a routerLink="home" routerLinkActive="text-main font-bold" class="block py-2 px-3 text-gray-500 md:p-0 dark:text-white" aria-current="page">
+            {{"Home" | translate}}  <!-- هعدي كلمة Home على  translate pipe -->
+          </a> </li>
+          <li> <a routerLink="product" routerLinkActive="text-main font-bold" class="block py-2 px-3 text-gray-500 md:p-0 dark:text-white" aria-current="page">
+            {{"Products" | translate}}
+          </a> </li>
+          <li> <a routerLink="cart" routerLinkActive="text-main font-bold" class="block py-2 px-3 text-gray-500 md:p-0 dark:text-white " aria-current="page">
+            {{"Cart" | translate}}
+          </a></li>
+          <li> <a routerLink="categories" routerLinkActive="text-main font-bold" class="block py-2 px-3 text-gray-500 md:p-0 dark:text-white" aria-current="page">
+            {{"Categories" | translate}}
+          </a> </li>
+          <li> <a routerLink="brands" routerLinkActive="text-main font-bold" class="block py-2 px-3 text-gray-500 md:p-0 dark:text-white" aria-current="page">
+            {{"Brands" | translate}}
+          </a> </li>
+          <li>
+            <a routerLink="wishlist" routerLinkActive="text-main font-bold" class="block py-2 px-3 text-gray-500 md:p-0 dark:text-white" aria-current="page">wishlist</a>
+          </li>
+
+        </ul>
+      }
+
+          <!-- #9 in translation -->
+        <!-- Dropdown -->
+      <div class="flex justify-center mt-2 md:mt-0">
+        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white btn-main hover:bg-green-400 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center " type="button">
+          {{"chose Language" | translate}}
+          <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+          </svg>
+        </button>
+
+        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+            <li>
+              <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="ChangeLang('en')">EN</a>
+            </li>
+            <li>
+              <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="ChangeLang('ar')">AR</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+        <!-- Dropdown -->
+
+
+      <ul class="flex gap-3 items-center ms-auto md:start-10">
+        @if (isLogin) {
+          <li class="relative"> <a routerLink="cart" routerLinkActive="text-main font-bold" class="block py-2 px-5 text-gray-500 md:p-0 dark:text-white " aria-current="page">
+            <div class="flex flex-col items-center">
+              @if (numOfItemsCart == "0") {
+                <i class="fa-solid fa-cart-shopping text-2xl"></i>
+              }@else {
+                <span class="absolute flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full right-0 top-0 translate-x-1">{{cartItem}}</span>
+                <i class="fa-solid fa-shopping-cart text-3xl"></i>
+              }
+            </div>
+          </a>
+        </li>
+        }
+        <li class="fa-brands fa-facebook"></li>
+        <li class="fa-brands fa-instagram"></li>
+        <li class="fa-brands fa-tiktok"></li>
+        <li class="fa-brands fa-youtube"></li>
+        <li class="fa-brands fa-linkedin"></li>
+        @if (!isLogin) {
+          <li> <a routerLink="register" routerLinkActive="text-main font-bold" class="block py-2 px-3 text-gray-500 md:p-0 dark:text-white" aria-current="page">
+            {{"Register" | translate}}
+          </a> </li>
+          <li> <a routerLink="login" routerLinkActive="text-main font-bold" class="block py-2 px-3 text-gray-500 md:p-0 dark:text-white" aria-current="page">
+            {{"login" | translate}}
+          </a> </li>
+        }
+        @if (isLogin) {
+          <li> <a routerLinkActive="text-main font-bold" class="block py-2 px-3 text-gray-500 md:p-0 dark:text-white cursor-pointer" aria-current="page" (click)="signOut()">
+            {{"SignOut" | translate}}
+          </a> </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>
+

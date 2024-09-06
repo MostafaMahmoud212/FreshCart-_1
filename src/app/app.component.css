@@ -1,0 +1,6 @@
+:host {   /* host بتعمل select ل component كله  app */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
